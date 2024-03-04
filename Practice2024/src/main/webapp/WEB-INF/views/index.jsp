@@ -19,6 +19,7 @@
 	<script src="http://code.jquery.com/jquery-latest.min.js"></script>
 	
 	<!--◁◀◁◀ Header ▶▷▶▷ -->
+	<%@ include file="/WEB-INF/views/include/sidebar.jsp"%>
 	<%@ include file="/WEB-INF/views/include/header.jsp"%>
 	<!--◁◀◁◀ Header ▶▷▶▷ -->
 	
@@ -45,16 +46,16 @@
 	</script>
 	
 	<body>
-	<h1 style="font-size: 70px;">회원정보 리스트</h1>
 	
 	<!--▼▼▼ 회원정보 리스트 전체테두리 ▼▼▼ -->
 	<div class="table-container">
+	<h1 style="font-size: 70px; font-weight: 700;">회원정보 리스트</h1>
 	
 	<!--검색어 찾기 -->
 	<div id="search-container">
 	
 	<div id="seletBox" style="width: 250px; padding-top: 50px;">
-		<input type="button" id="SelectAll" value="전체선택" style="font-weight: 700;">
+		<input type="button" id="SelectAll" value="전체선택" style="font-weight: 700; margin-right: 10px;">
 		<input type="radio" value="male" style="display: inline-block; vertical-align: middle;"><label for="male">남자</label>
 		<input type="radio" value="female" style="display: inline-block; vertical-align: middle;"><label for="female" >여자</label>
 	</div>
@@ -91,7 +92,7 @@
 		    <col width="12%">
 		    <col width="10%">
 		    <col width="6%">
-		    <col width="10%">
+		    <col width="12%">
 	    </colgroup>
 	      <tr>
 	        <th>번 호</th>
@@ -173,71 +174,6 @@
 	        <td class="Bdate">12345</td>
 	        <td class="Bdate">2024-02-07 12:17:11</td>
 	      </tr>
-	      <tr>
-	        <td class="Bno"><input type="checkbox"> </td>
-	        <td class="ID">jskarat123</td>
-	        <td class="Bdate">11111</td>
-	        <td class="Btitle">홍길동남</td>
-	        <td class="Bdate">남자</td>
-	        <td class="Bgroup">010-7777-7777</td>
-	        <td class="Bfile">서울시 은평구 진관동 진관4로 현대 아파트</td>
-	        <td class="Bhit">hfds123@hanmail.net</td>
-	        <td class="Bhit">920207-1237777</td>
-	        <td class="Bdate">12345</td>
-	        <td class="Bdate">2024-02-07 12:17:11</td>
-	      </tr>
-	      <tr>
-	        <td class="Bno"><input type="checkbox"> </td>
-	        <td class="ID">jskarat123</td>
-	        <td class="Bdate">11111</td>
-	        <td class="Btitle">홍길동남</td>
-	        <td class="Bdate">남자</td>
-	        <td class="Bgroup">010-7777-7777</td>
-	        <td class="Bfile">서울시 은평구 진관동 진관4로 현대 아파트</td>
-	        <td class="Bhit">hfds123@hanmail.net</td>
-	        <td class="Bhit">920207-1237777</td>
-	        <td class="Bdate">12345</td>
-	        <td class="Bdate">2024-02-07 12:17:11</td>
-	      </tr>
-	      <tr>
-	        <td class="Bno"><input type="checkbox"> </td>
-	        <td class="ID">jskarat123</td>
-	        <td class="Bdate">11111</td>
-	        <td class="Btitle">홍길동남</td>
-	        <td class="Bdate">남자</td>
-	        <td class="Bgroup">010-7777-7777</td>
-	        <td class="Bfile">서울시 은평구 진관동 진관4로 현대 아파트</td>
-	        <td class="Bhit">hfds123@hanmail.net</td>
-	        <td class="Bhit">920207-1237777</td>
-	        <td class="Bdate">12345</td>
-	        <td class="Bdate">2024-02-07 12:17:11</td>
-	      </tr>
-	      <tr>
-	        <td class="Bno"><input type="checkbox"> </td>
-	        <td class="ID">jskarat123</td>
-	        <td class="Bdate">11111</td>
-	        <td class="Btitle">홍길동남</td>
-	        <td class="Bdate">남자</td>
-	        <td class="Bgroup">010-7777-7777</td>
-	        <td class="Bfile">서울시 은평구 진관동 진관4로 현대 아파트</td>
-	        <td class="Bhit">hfds123@hanmail.net</td>
-	        <td class="Bhit">920207-1237777</td>
-	        <td class="Bdate">12345</td>
-	        <td class="Bdate">2024-02-07 12:17:11</td>
-	      </tr>
-	      <tr>
-	        <td class="Bno"><input type="checkbox"> </td>
-	        <td class="ID">jskarat123</td>
-	        <td class="Bdate">11111</td>
-	        <td class="Btitle">홍길동남</td>
-	        <td class="Bdate">남자</td>
-	        <td class="Bgroup">010-7777-7777</td>
-	        <td class="Bfile">서울시 은평구 진관동 진관4로 현대 아파트</td>
-	        <td class="Bhit">hfds123@hanmail.net</td>
-	        <td class="Bhit">920207-1237777</td>
-	        <td class="Bdate">12345</td>
-	        <td class="Bdate">2024-02-07 12:17:11</td>
-	      </tr>
 	    </tbody>
 	  </table>
 	  
@@ -254,15 +190,15 @@
 	  	<li class="num"><i class="fa fa-forward" aria-hidden="true"></i></li>
 	  </ul>
 	  <!--페이지 넘버링 끝 -->
-	</div>
-	<!-- ▲▲▲ 회원정보 리스트 전체 테두리 끝 ▲▲▲-->
-	
 	<!--▣ 버튼 ▣ -->
 	<div class="button-container">
 	  <input type="button" id="listInsertBtn" value="등록">
 	  <input type="button" id="listDelBtn" value="삭제">
 	</div>
 	<!--▣ 버튼 ▣-->
+	</div>
+	<!-- ▲▲▲ 회원정보 리스트 전체 테두리 끝 ▲▲▲-->
+	
 	
 	</body>
 	

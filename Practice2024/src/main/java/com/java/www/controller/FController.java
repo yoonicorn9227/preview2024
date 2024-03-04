@@ -21,5 +21,10 @@ public class FController {
 	public String memInfo() {
 		return "memInfo";
 	}//memInfo
+	
+	@GetMapping("mInsert")
+	public String mInsert() {
+		return "mInsert";
+	}
 
 }// FController(컨트롤러)

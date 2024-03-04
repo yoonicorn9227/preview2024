@@ -13,16 +13,18 @@ body {
 	flex-direction: column; /* 요소를 세로로 배치합니다. */
 	justify-content: center; /* 요소를 세로로 가운데 정렬합니다. */
 	align-items: center; /* 요소를 가로로 가운데 정렬합니다. */
-	height: 120vh; /* 화면 전체 높이 설정 */
+	height: 150vh;
 	margin: 0; /* body의 margin을 0으로 설정하여 페이지의 여백을 제거합니다. */
 	margin-top: 230px;
-	margin-bottom: 230px;
 }
 /* 표 스타일 설정 */
 .table-container {
 	width: 100%; /* 표의 전체 너비 설정 */
 	max-width: 1700px; /* 최대 너비 설정 */
-	margin-bottom: 20px; /* 표 아래 여백 설정 */
+	padding-left: 18vh;
+}
+.table-container>h1{
+	text-align: center;
 }
 
 table {
@@ -44,6 +46,8 @@ input {
 	box-sizing: border-box;
 	margin: 3px;
 }
+
+label{ margin: 0 5px 0 5px;}
 
 /* 버튼 스타일 설정 */
 .button-container {
@@ -73,21 +77,10 @@ td {
 	justify-content: center;
 }
 
-li {
-	width: 30px; /* 아이템의 너비 */
-	height: 30px; /* 아이템의 높이 */
-	padding: 5px; /* 아이템의 안쪽 여백 */
-	text-align: center; /* 텍스트 가운데 정렬 */
-	display: flex; /* 내부의 내용을 가운데 정렬하기 위해 플렉스 박스로 설정 */
-	align-items: center; /* 아이템을 세로 가운데 정렬 */
-	justify-content: center; /* 아이템을 가로 가운데 정렬 */
-	margin: 3px;
-	margin-top: 30px;
-}
 
 .num {
-	width: 30px; /* 아이템의 너비 */
-	height: 30px; /* 아이템의 높이 */
+	width: 40px; /* 아이템의 너비 */
+	height: 40px; /* 아이템의 높이 */
 	padding: 5px; /* 아이템의 안쪽 여백 */
 	text-align: center; /* 텍스트 가운데 정렬 */
 	display: flex; /* 내부의 내용을 가운데 정렬하기 위해 플렉스 박스로 설정 */
@@ -98,11 +91,12 @@ li {
 	border: 1px solid gray;
 	font-weight: 700;
 	border-radius: 5px;
+	font-size: 20px;
 }
 
 .num:hover {
-	width: 30px; /* 아이템의 너비 */
-	height: 30px; /* 아이템의 높이 */
+	width: 40px; /* 아이템의 너비 */
+	height: 40px; /* 아이템의 높이 */
 	padding: 5px; /* 아이템의 안쪽 여백 */
 	text-align: center; /* 텍스트 가운데 정렬 */
 	display: flex; /* 내부의 내용을 가운데 정렬하기 위해 플렉스 박스로 설정 */
@@ -117,6 +111,9 @@ li {
 	cursor: pointer;
 	border-radius: 5px;
 }
+
+
+
 
 #search-container {
 	display: flex;
@@ -143,6 +140,8 @@ li {
 
 #searchWord {
 	flex: 1; /* 남은 공간을 모두 차지하도록 설정합니다. */
+	margin: 0 5px 0 5px;
+	width: 300px;
 }
 
 #searchBtn, #SelectAll {
