@@ -12,13 +12,13 @@
     <!-- Side navigation -->
 	<div class="sidenav">
 	  <div id="profileImg" style="border: 1px solid lightgray; width: 150px; height: 150px; background-image: url('../css/images/logo.jpg/'); background-size: cover; background-position: center;background-repeat: no-repeat;"></div>
-	  <strong style="font-size: 20px; color: #c9184a;">홍길동님</strong>
+	  <strong style="font-size: 20px; color: #c9184a;">${session_name }님</strong>
 	  <a class="sideMenu" href="#">My Page</a>
 	  <a class="sideMenu" href="#">메일 게시판</a>
 	  <a class="sideMenu" href="#">다음지도</a>
 	  <a class="sideMenu" href="#">공공데이터</a>
 	  <a class="sideMenu" href="#">관리자페이지</a>
-	  <a class="sideMenu" href="#">로그아웃</a>
+	  <a class="sideMenu" href="doLogout">로그아웃</a>
 	</div>
 </body>
 </html>

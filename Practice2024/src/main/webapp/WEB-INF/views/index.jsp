@@ -5,6 +5,12 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <!DOCTYPE html>
 <html>
+	<c:if test="${session_id==null }">
+	 	<script>
+	 		alert("※ 로그인 해주세요.")
+	 		location.href="login";
+	 	</script>
+	</c:if>
 	<head>
 		<meta charset="UTF-8">
 		<title>회원리스트</title>
@@ -56,8 +62,8 @@
 	
 	<div id="seletBox" style="width: 250px; padding-top: 50px;">
 		<input type="button" id="SelectAll" value="전체선택" style="font-weight: 700; margin-right: 10px;">
-		<input type="radio" value="male" style="display: inline-block; vertical-align: middle;"><label for="male">남자</label>
-		<input type="radio" value="female" style="display: inline-block; vertical-align: middle;"><label for="female" >여자</label>
+		<input type="radio" id="male" value="male" name="gender" style="display: inline-block; vertical-align: middle;"><label for="male">남자</label>
+		<input type="radio" id="female" value="female" name="gender" style="display: inline-block; vertical-align: middle;"><label for="female" >여자</label>
 	</div>
 		<form action="" method="get">
 			<div id="searchSection">
@@ -109,71 +115,21 @@
 	      </tr>
 	    </thead>
 	    <tbody style="border-bottom: 2px solid #14213d;">
+	      <c:forEach var="ymdto" items="${list }" begin="0" end="5">
 	      <tr>
-	        <td class="Bno"><input type="checkbox"> </td>
-	        <td class="ID">jskarat123</td>
-	        <td class="Bdate">11111</td>
-	        <td class="Btitle">홍길동남</td>
-	        <td class="Bdate">남자</td>
-	        <td class="Bgroup">010-7777-7777</td>
-	        <td class="Bfile">서울시 은평구 진관동 진관4로 현대 아파트</td>
-	        <td class="Bhit">hfds123@hanmail.net</td>
-	        <td class="Bhit">920207-1237777</td>
-	        <td class="Bdate">12345</td>
-	        <td class="Bdate">2024-02-07 12:17:11</td>
+	        <td class="Bno"><input type="checkbox" value="${ymdto.ymno }"></td>
+	        <td class="ID">${ymdto.id }</td>
+	        <td class="Bdate">${ymdto.pw }</td>
+	        <td class="Btitle">${ymdto.name }</td>
+	        <td class="Bdate">${ymdto.gender}</td>
+	        <td class="Bgroup">${ymdto.phone}</td>
+	        <td class="Bfile">${ymdto.address}</td>
+	        <td class="Bhit">${ymdto.email}</td>
+	        <td class="Bhit">${ymdto.pnumber}</td>
+	        <td class="Bdate">${ymdto.login_num}</td>
+	        <td class="Bdate">${ymdto.recent_time}</td>
 	      </tr>
-	      <tr>
-	        <td class="Bno"><input type="checkbox"> </td>
-	        <td class="ID">jskarat123</td>
-	        <td class="Bdate">11111</td>
-	        <td class="Btitle">홍길동남</td>
-	        <td class="Bdate">남자</td>
-	        <td class="Bgroup">010-7777-7777</td>
-	        <td class="Bfile">서울시 은평구 진관동 진관4로 현대 아파트</td>
-	        <td class="Bhit">hfds123@hanmail.net</td>
-	        <td class="Bhit">920207-1237777</td>
-	        <td class="Bdate">12345</td>
-	        <td class="Bdate">2024-02-07 12:17:11</td>
-	      </tr>
-	      <tr>
-	        <td class="Bno"><input type="checkbox"> </td>
-	        <td class="ID">jskarat123</td>
-	        <td class="Bdate">11111</td>
-	        <td class="Btitle">홍길동남</td>
-	        <td class="Bdate">남자</td>
-	        <td class="Bgroup">010-7777-7777</td>
-	        <td class="Bfile">서울시 은평구 진관동 진관4로 현대 아파트</td>
-	        <td class="Bhit">hfds123@hanmail.net</td>
-	        <td class="Bhit">920207-1237777</td>
-	        <td class="Bdate">12345</td>
-	        <td class="Bdate">2024-02-07 12:17:11</td>
-	      </tr>
-	      <tr>
-	        <td class="Bno"><input type="checkbox"> </td>
-	        <td class="ID">jskarat123</td>
-	        <td class="Bdate">11111</td>
-	        <td class="Btitle">홍길동남</td>
-	        <td class="Bdate">남자</td>
-	        <td class="Bgroup">010-7777-7777</td>
-	        <td class="Bfile">서울시 은평구 진관동 진관4로 현대 아파트</td>
-	        <td class="Bhit">hfds123@hanmail.net</td>
-	        <td class="Bhit">920207-1237777</td>
-	        <td class="Bdate">12345</td>
-	        <td class="Bdate">2024-02-07 12:17:11</td>
-	      </tr>
-	      <tr>
-	        <td class="Bno"><input type="checkbox"> </td>
-	        <td class="ID">jskarat123</td>
-	        <td class="Bdate">11111</td>
-	        <td class="Btitle">홍길동남</td>
-	        <td class="Bdate">남자</td>
-	        <td class="Bgroup">010-7777-7777</td>
-	        <td class="Bfile">서울시 은평구 진관동 진관4로 현대 아파트</td>
-	        <td class="Bhit">hfds123@hanmail.net</td>
-	        <td class="Bhit">920207-1237777</td>
-	        <td class="Bdate">12345</td>
-	        <td class="Bdate">2024-02-07 12:17:11</td>
-	      </tr>
+	      </c:forEach>
 	    </tbody>
 	  </table>
 	  

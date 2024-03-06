@@ -13,15 +13,17 @@ body {
 	flex-direction: column; /* 요소를 세로로 배치합니다. */
 	justify-content: center; /* 요소를 세로로 가운데 정렬합니다. */
 	align-items: center; /* 요소를 가로로 가운데 정렬합니다. */
-	height: 150vh;
 	margin: 0; /* body의 margin을 0으로 설정하여 페이지의 여백을 제거합니다. */
 	margin-top: 230px;
 }
 /* 표 스타일 설정 */
 .table-container {
 	width: 100%; /* 표의 전체 너비 설정 */
+	height:100%;
 	max-width: 1700px; /* 최대 너비 설정 */
 	padding-left: 18vh;
+	margin-top: 150px;
+	margin-bottom: -320px;
 }
 .table-container>h1{
 	text-align: center;

@@ -24,6 +24,22 @@
 	
 	<script>
 		$(function(){
+			$("#loginBtn").click(function(){
+				if($("#id").val().length<1){
+					alert("※ 아이디를 입력하세요");
+					$("#id").focus();
+					return false;
+				}//아이디 미입력시
+				
+				if($("#pw").val().length<1){
+					alert(" ※ 비밀번호를 입력하세요");
+					$("#pw").focus();
+					return false;
+				}//비밀번호 미입력시
+				
+				loginFrm.submit();
+				
+			});//#loginBtn(로그인)
 			
 		});//제이쿼리 최신
 	</script>
@@ -31,27 +47,26 @@
 	<body>
 		<h1 style="font-size: 70px;">로 그 인</h1>
 	
-		<form class="form">
+		<form   action="doLogin" method="post" name="loginFrm" class="form">
 		    <div class="flex-column"><label>아이디 </label></div>
 		    <div class="inputForm">
 		    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" height="20"><path d="M304 128a80 80 0 1 0 -160 0 80 80 0 1 0 160 0zM96 128a128 128 0 1 1 256 0A128 128 0 1 1 96 128zM49.3 464H398.7c-8.9-63.3-63.3-112-129-112H178.3c-65.7 0-120.1 48.7-129 112zM0 482.3C0 383.8 79.8 304 178.3 304h91.4C368.2 304 448 383.8 448 482.3c0 16.4-13.3 29.7-29.7 29.7H29.7C13.3 512 0 498.7 0 482.3z"/></svg>
-	         <input placeholder="아이디" class="input" type="text">
+	         <input id="id" name="id" placeholder="아이디" class="input" type="text">
 		    </div>
 		    
 		    <div class="flex-column"><label>비밀번호 </label></div>
 		      <div class="inputForm">
 		        <svg xmlns="http://www.w3.org/2000/svg" width="20" viewBox="-64 0 512 512" height="20"><path d="m336 512h-288c-26.453125 0-48-21.523438-48-48v-224c0-26.476562 21.546875-48 48-48h288c26.453125 0 48 21.523438 48 48v224c0 26.476562-21.546875 48-48 48zm-288-288c-8.8125 0-16 7.167969-16 16v224c0 8.832031 7.1875 16 16 16h288c8.8125 0 16-7.167969 16-16v-224c0-8.832031-7.1875-16-16-16zm0 0"></path><path d="m304 224c-8.832031 0-16-7.167969-16-16v-80c0-52.929688-43.070312-96-96-96s-96 43.070312-96 96v80c0 8.832031-7.167969 16-16 16s-16-7.167969-16-16v-80c0-70.59375 57.40625-128 128-128s128 57.40625 128 128v80c0 8.832031-7.167969 16-16 16zm0 0"></path></svg>        
-		        <input placeholder="비밀번호" class="input" type="password">
+		        <input id="pw" name="pw" placeholder="비밀번호" class="input" type="password">
 		      </div>
-	    
 		    <div class="flex-row">
 		      <div>
 		      <input type="radio">
-		      <label>아이디 저장 </label>
+		      <label>아이디 저장</label>
 		      </div>
 		      <span class="span">비밀번호 찾기</span>
 		    </div>
-		    <button class="button-submit">로그인</button>
+		    <button class="button-submit" id="loginBtn">로그인</button>
 		    <p class="p">회원이 아니세요? <a href="mInsert" style="text-decoration: none;"><span class="span">회원가입</span></a>
 		
 	    	</p><p class="p line" style="color: #d80032; font-weight: 700;">소셜 계정으로 로그인</p>
@@ -68,9 +83,8 @@
 				  </button>
 			  </div>
 		  </form>
-		<div class="content1" style="background-image: url('../css/img/login.png'); width: 100%; height: 320px; margin:30px auto;">
-		  <div class="text" style="color: #d9d9d9; ">Yoonicorn 서비스는 항상 당신과 함께합니다.</div>
-		  <div class="p" style="color: #d9d9d9;">앞써나가는 그룹웨어 시스템</div>
+		<div class="content1" style="background-image: url('../css/img/login.png'); width: 90%; height: 320px; margin:30px auto; display: flex; align-items: center; justify-content: center;">
+		  <div class="text" style="color: #d6cfcb; "><strong style="color: yellow">Yoonicorn</strong> 서비스는 항상 당신과 함께합니다.<br><strong>앞써나가는 그룹웨어 시스템 Yoonicorn</strong></div>
 		</div>
 	</body>
 	<!--◁◀◁◀ Footer ▶▷▶▷ -->

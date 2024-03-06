@@ -26,8 +26,8 @@
 							<li class="nav"><a class="headerNav" href="mInsert">회원가입</a></li>
 						</c:if>
 						<c:if test="${session_id!=null }">
-							<li class="nav"><a class="headerNav" href="#">로그아웃</a></li>
-							<li class="nav"><a class="headerNav" href="#">회원정보</a></li>
+							<li class="nav"><a class="headerNav" href="#">${session_name }님</a></li>
+							<li class="nav"><a class="headerNav" href="doLogout">로그아웃</a></li>
 						</c:if>
 						<li class="nav"><a class="headerNav" href="#">게시판</a></li>
 						<li class="nav"><a class="headerNav" href="#">다음지도</a></li>

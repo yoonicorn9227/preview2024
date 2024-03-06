@@ -84,8 +84,8 @@
 		    <tr>
 		        <td class="col1">성별</td>
 		        <td class="col2" colspan="2">
-			        <input type="radio" value="male"><label>남자</label>
-			        <input type="radio" value="female"><label>여자</label>
+			        <input type="radio" id="male" value="male" name="gender"><label for="male">남자</label>
+			        <input type="radio" id="female" value="female" name="gender"><label for="female">여자</label>
 		        </td>
 		    </tr>
 		    <tr>
