@@ -1,6 +1,7 @@
 package com.java.www.service;
 
 import java.util.ArrayList;
+import java.util.Map;
 
 import com.java.www.dto.MemberDto;
 
@@ -9,6 +10,6 @@ public interface MService {
 	MemberDto loginSelect(MemberDto mdto);
 
 	//2. 회원정보 리스트 가져오기
-	ArrayList<MemberDto> mSelectAll();
+	Map<String, Object> mSelectAll(int page);
 
 }//MService

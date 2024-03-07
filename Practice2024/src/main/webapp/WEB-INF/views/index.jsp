@@ -35,24 +35,34 @@
 				alert("test");
 			});//#listInsertBtn(등록버튼)
 			
-			$("#listDelBtn").click(function(){
-				if(confirm("삭제하시겠습니까?")){
-				}//if(삭제확인)
-			});//#listInsertBtn(등록버튼)
+			  $("#listDelBtn").click(function(){
+			        if(confirm("삭제 하시겠습니까?")){
+			            // 각 체크된 행을 삭제하는 코드
+			            $("input[type='checkbox']:checked").each(function(){
+			                var ymno = $(this).closest("tr").find("#Ymno").val(); // 각 체크된 행에서 번호를 가져옵니다.
+			                alert(ymno);
+			                // 삭제를 위한 AJAX 요청 등을 수행하세요.
+			            });//each함수
+			        }//if-confirm(삭제)
+			    }); //#listDeltBtn(삭제버튼)
 			
 			$("#SelectAll").click(function(){
 				alert("전체선택 버튼 test");
+				
+				
 			});//#SelectAll(전체선택)
 			
 			$("#searchBtn").click(function(){
 				alert("검색어 test");
+				
+				//alert($("#searchWord").val());
+				$("#searchWord").val();
+				 
 			});//#searchBtn(검색어)
 			
 		});//제이쿼리 최신
 	</script>
-	
 	<body>
-	
 	<!--▼▼▼ 회원정보 리스트 전체테두리 ▼▼▼ -->
 	<div class="table-container">
 	<h1 style="font-size: 70px; font-weight: 700;">회원정보 리스트</h1>
@@ -62,10 +72,10 @@
 	
 	<div id="seletBox" style="width: 250px; padding-top: 50px;">
 		<input type="button" id="SelectAll" value="전체선택" style="font-weight: 700; margin-right: 10px;">
-		<input type="radio" id="male" value="male" name="gender" style="display: inline-block; vertical-align: middle;"><label for="male">남자</label>
-		<input type="radio" id="female" value="female" name="gender" style="display: inline-block; vertical-align: middle;"><label for="female" >여자</label>
+		<input type="radio" id="Male" value="male" name="gender" style="display: inline-block; vertical-align: middle;"><label for="male">남자</label>
+		<input type="radio" id="Female" value="female" name="gender" style="display: inline-block; vertical-align: middle;"><label for="female" >여자</label>
 	</div>
-		<form action="" method="get">
+		<form action="searchList" method="get">
 			<div id="searchSection">
 				<select id="ViewCondition">
 					<option value="5">5 개</option>
@@ -74,8 +84,10 @@
 				</select>
 				<select id="searchCategory">
 					<option value="all">전체</option>
-					<option value="bno">번호</option>
-					<option value="btitle">제목</option>
+					<option value="Name">이름</option>
+					<option value="Id">아이디</option>
+					<option value="PhoneNum">연락처</option>
+					<option value="Pnum">주민번호</option>
 				</select>
 				<input type="text" id="searchWord" name="" placeholder=" ※검색어를 입력하세요.">
 				<input type="button" id="searchBtn" value="검 색">
@@ -115,35 +127,59 @@
 	      </tr>
 	    </thead>
 	    <tbody style="border-bottom: 2px solid #14213d;">
-	      <c:forEach var="ymdto" items="${list }" begin="0" end="5">
-	      <tr>
-	        <td class="Bno"><input type="checkbox" value="${ymdto.ymno }"></td>
-	        <td class="ID">${ymdto.id }</td>
-	        <td class="Bdate">${ymdto.pw }</td>
-	        <td class="Btitle">${ymdto.name }</td>
-	        <td class="Bdate">${ymdto.gender}</td>
-	        <td class="Bgroup">${ymdto.phone}</td>
-	        <td class="Bfile">${ymdto.address}</td>
-	        <td class="Bhit">${ymdto.email}</td>
-	        <td class="Bhit">${ymdto.pnumber}</td>
-	        <td class="Bdate">${ymdto.login_num}</td>
-	        <td class="Bdate">${ymdto.recent_time}</td>
-	      </tr>
+	      <c:forEach var="ymdto" items="${map.list}">
+		      <tr>
+		        <td>
+			        <input type="checkbox" value="${ymdto.ymno }">
+			        <input id="Ymno" type="hidden" value="${ymdto.ymno }">
+		        </td>
+		        <td id="ID">${ymdto.id }</td>
+		        <td>${ymdto.pw }</td>
+		        <td>${ymdto.name }</td>
+		        <td>${ymdto.gender}</td>
+		        <td>${ymdto.phone}</td>
+		        <td>${ymdto.address}</td>
+		        <td>${ymdto.email}</td>
+		        <td>${ymdto.pnumber}</td>
+		        <td>${ymdto.login_num}</td>
+		        <td><fmt:formatDate value="${ymdto.recent_time}" pattern="YYYY-MM-dd HH:mm:ss"/> </td>
+		      </tr>
 	      </c:forEach>
 	    </tbody>
 	  </table>
 	  
 	  <!--페이지 넘버링 -->
 	  <ul id="PageNum" style="display: flex; list-style: none;">
-	  	<li class="num"><i class="fa fa-backward" aria-hidden="true"></i></li>
-	  	<li class="num"><i class="fa fa-chevron-circle-left" aria-hidden="true"></i></i></li>
-	  	<li class="num">1</li>
-	  	<li class="num">2</li>
-	  	<li class="num">3</li>
-	  	<li class="num">4</li>
-	  	<li class="num">5</li>
-	  	<li class="num"><i class="fa fa-chevron-circle-right" aria-hidden="true"></i></li>
-	  	<li class="num"><i class="fa fa-forward" aria-hidden="true"></i></li>
+	  	<!--첫번째 페이지-->
+	  	<a href="index?page=1"><li class="num"><i class="fa fa-backward" aria-hidden="true"></i></li></a>
+	  	<!--이전 페이지-->
+	  	<c:if test="${map.page<=1 }">
+	  		<li class="num"><i class="fa fa-chevron-circle-left" aria-hidden="true"></i></li>
+	  	</c:if>
+	  	<c:if test="${map.page>1 }">
+	  		<a href="index?page=${map.page-1 }"><li class="num"><i class="fa fa-chevron-circle-left" aria-hidden="true"></i></li></a>
+	  	</c:if>
+	  	
+	  	<!--페이지 넘버링-->
+	  	<c:forEach var="i" begin="${map.startPageNum}" end="${map.endPageNum }" step="1">
+			<c:if test="${map.page==i }">
+		  		 <li class="num numOn">${i}</li>
+			</c:if>	  		
+			<c:if test="${map.page!=i }">
+		  		<a href="index?page=${i }" style="text-decoration: none;"><li class="num">${i}</li></a>
+			</c:if>	  		
+	  	</c:forEach>
+	  	
+	  	<!--다음 페이지-->
+	  	<c:if test="${map.page<map.maxPage }">
+	  		<a href="index?page=${map.page+1 }"><li class="num"><i class="fa fa-chevron-circle-right" aria-hidden="true"></i></li></a>
+	  	</c:if>
+	  	<c:if test="${map.page>=map.maxPage }">
+	  		<li class="num"><i class="fa fa-chevron-circle-right" aria-hidden="true"></i></li>
+	  	</c:if>
+	  	
+	  	<!-- 마지막 페이지 -->
+	  	<a href="index?page=${map.maxPage }"><li class="num"><i class="fa fa-forward" aria-hidden="true"></i></li></a>
 	  </ul>
 	  <!--페이지 넘버링 끝 -->
 	<!--▣ 버튼 ▣ -->

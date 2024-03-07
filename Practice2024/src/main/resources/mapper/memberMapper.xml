@@ -1,13 +1,30 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <!-- MemberMapper.java 연결 -->
 <mapper namespace="com.java.www.mapper.MemberMapper">
+	<!-- 1. 로그인 접속 -->
 	<select id="loginSelect" resultType="com.java.www.dto.MemberDto">
 		select * from ymember where id=#{id} and pw=#{pw}
 	</select>
+	<!-- 1-a 로그인 최근접속 시간 -->
+	<update id="loginTime">
+		update ymember set recent_time=sysdate where id=#{id}
+	</update>
 
-	<select id="mSelectAll"  resultType="com.java.www.dto.MemberDto">
-		select * from (select row_number() over(order by ymno desc) rnum, a.* from
-		ymember a) where rnum between 1 and 5
+	<!-- 1-b. 로그인 접속횟수 -->
+	<update id="loginCount">
+		update ymember set login_num=login_num+1 where id =#{id}
+	</update>
+
+	<!-- 2. 회원정보 리스트 가져오기 -->
+	<select id="mSelectAll" resultType="com.java.www.dto.MemberDto">
+		select * from (select
+		row_number() over(order by ymno desc) rnum, a.* from
+		ymember a) where
+		rnum between #{startContRowNum} and #{endContRowNum}
+	</select>
+	<!-- 2-a. 회원정보 리스트 총갯수 -->
+	<select id="mSelectCountAll" resultType="int">
+		select count(*) from ymember
 	</select>
 
 </mapper>

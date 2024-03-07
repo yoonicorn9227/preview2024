@@ -51,6 +51,8 @@ input {
 
 label{ margin: 0 5px 0 5px;}
 
+a{text-decoration: none}
+
 /* 버튼 스타일 설정 */
 .button-container {
 	display: flex; /* 버튼을 가로로 배치합니다. */
@@ -96,6 +98,23 @@ td {
 	font-size: 20px;
 }
 
+.numOn {
+	width: 40px; /* 아이템의 너비 */
+	height: 40px; /* 아이템의 높이 */
+	padding: 5px; /* 아이템의 안쪽 여백 */
+	text-align: center; /* 텍스트 가운데 정렬 */
+	display: flex; /* 내부의 내용을 가운데 정렬하기 위해 플렉스 박스로 설정 */
+	align-items: center; /* 아이템을 세로 가운데 정렬 */
+	justify-content: center; /* 아이템을 가로 가운데 정렬 */
+	margin: 3px;
+	margin-top: 30px;
+	border-color: gray;
+	font-weight: 700;
+	background: #14213d;
+	color: yellow;
+	border-radius: 5px;
+}
+
 .num:hover {
 	width: 40px; /* 아이템의 너비 */
 	height: 40px; /* 아이템의 높이 */
@@ -110,7 +129,6 @@ td {
 	font-weight: 700;
 	background: #14213d;
 	color: yellow;
-	cursor: pointer;
 	border-radius: 5px;
 }
 
