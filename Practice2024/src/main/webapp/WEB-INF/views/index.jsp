@@ -42,13 +42,23 @@
 			                var ymno = $(this).closest("tr").find("#Ymno").val(); // 각 체크된 행에서 번호를 가져옵니다.
 			                alert(ymno);
 			                // 삭제를 위한 AJAX 요청 등을 수행하세요.
+			                
+			                
 			            });//each함수
 			        }//if-confirm(삭제)
 			    }); //#listDeltBtn(삭제버튼)
 			
+			var SelectAll_condition=0; //전체선택 상태(0:전체선택 안됨, 1:전체선택됨)
 			$("#SelectAll").click(function(){
 				alert("전체선택 버튼 test");
 				
+				if(SelectAll_condition==0){
+					$(".CheckBox").prop("checked",true);
+					SelectAll_condition=1
+				} else if(SelectAll_condition==1){
+					$(".CheckBox").prop("checked",false);
+					SelectAll_condition=0
+				}//if-else(전체선택  || 전체선택 해제)
 				
 			});//#SelectAll(전체선택)
 			
@@ -130,7 +140,7 @@
 	      <c:forEach var="ymdto" items="${map.list}">
 		      <tr>
 		        <td>
-			        <input type="checkbox" value="${ymdto.ymno }">
+			        <input type="checkbox" class="CheckBox" value="${ymdto.ymno }">
 			        <input id="Ymno" type="hidden" value="${ymdto.ymno }">
 		        </td>
 		        <td id="ID">${ymdto.id }</td>
