@@ -35,18 +35,21 @@
 				alert("test");
 			});//#listInsertBtn(등록버튼)
 			
-			  $("#listDelBtn").click(function(){
-			        if(confirm("삭제 하시겠습니까?")){
-			            // 각 체크된 행을 삭제하는 코드
-			            $("input[type='checkbox']:checked").each(function(){
-			                var ymno = $(this).closest("tr").find("#Ymno").val(); // 각 체크된 행에서 번호를 가져옵니다.
-			                alert(ymno);
-			                // 삭제를 위한 AJAX 요청 등을 수행하세요.
-			                
-			                
-			            });//each함수
-			        }//if-confirm(삭제)
-			    }); //#listDeltBtn(삭제버튼)
+			$("#listDelBtn").click(function(){
+				if(confirm("삭제하시겠습니까?")){
+					
+					//var delSelect = $(this).parent().prev().prev().find(".CheckBox:checked").attr("id");
+					var delSelect = $(this).parent().prev().prev().find(".CheckBox:checked").map(function() {return this.id;}).get();
+					alert(delSelect)
+					
+					if(delSelect.length<1){
+						alert("선택된 정보가 없습니다.");
+					} else {
+						//Ajax실행
+					}//
+					
+				}//if(삭제확인)
+			});//#listInsertBtn(등록버튼)
 			
 			var SelectAll_condition=0; //전체선택 상태(0:전체선택 안됨, 1:전체선택됨)
 			$("#SelectAll").click(function(){
@@ -140,7 +143,7 @@
 	      <c:forEach var="ymdto" items="${map.list}">
 		      <tr>
 		        <td>
-			        <input type="checkbox" class="CheckBox" value="${ymdto.ymno }">
+			        <input type="checkbox" class="CheckBox" id="${ymdto.ymno }">
 			        <input id="Ymno" type="hidden" value="${ymdto.ymno }">
 		        </td>
 		        <td id="ID">${ymdto.id }</td>
