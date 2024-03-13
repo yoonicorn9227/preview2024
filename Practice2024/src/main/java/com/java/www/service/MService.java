@@ -12,4 +12,7 @@ public interface MService {
 	//2. 회원정보 리스트 가져오기
 	Map<String, Object> mSelectAll(int page);
 
+	void mDelete(int[] selectArr);
+
+
 }//MService

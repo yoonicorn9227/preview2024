@@ -17,6 +17,7 @@ public interface MemberMapper {
 	//2. 회원정보 리스트 가져오기
 	ArrayList<MemberDto> mSelectAll(int startContRowNum, int endContRowNum);
 	int mSelectCountAll(); //2-a. 회원정보 리스트 총갯수
+	void mDelete(int[] selectArr);// 2-b 회원정보 다중삭제
 
 
 }//MemberMapper(Interface)

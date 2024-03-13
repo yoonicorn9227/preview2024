@@ -36,17 +36,47 @@
 			});//#listInsertBtn(등록버튼)
 			
 			$("#listDelBtn").click(function(){
-				if(confirm("삭제하시겠습니까?")){
+				if(confirm("삭제 하시겠습니까?")){
 					
-					//var delSelect = $(this).parent().prev().prev().find(".CheckBox:checked").attr("id");
-					var delSelect = $(this).parent().prev().prev().find(".CheckBox:checked").map(function() {return this.id;}).get();
-					alert(delSelect)
+					//선택된 번호 배열선언
+					var selectArr=[];
+					//선택된 Ymno위치값
+					var SelectYmno = $(this).parent().prev().prev().find(".CheckBox:checked").map(function() {return this.id;}).get();
 					
-					if(delSelect.length<1){
-						alert("선택된 정보가 없습니다.");
+			        // SelectYmno 배열을 selectArr에 추가
+			        selectArr = selectArr.concat(SelectYmno);
+					
+					var Select_length = SelectYmno.length; //선택된 Ymno 갯수
+					
+					alert(selectArr)
+					
+					if(Select_length<1){
+						alert("선택된 회원정보가 없습니다.");
 					} else {
-						//Ajax실행
-					}//
+						alert(Select_length);
+						//♠Ajax실행
+						$.ajax({
+							url:"/member/mDelete",
+							type:"post",
+							contentType: "application/json", //contentType : 데이터를 전송하는 타입
+							data: JSON.stringify(selectArr), // selectArr을 JSON 문자열로 변환하여 전송
+							dataType:"text", //데이터를 받는 타입
+							traditional:true,
+							success:function(data){
+								if(data=="성공"){
+								alert("회원정보가 삭제되었습니다.");
+								location.href="/";
+								}
+							},//success
+							error:function(){
+								alert("실패");
+							}//error
+							
+						});//Ajax
+						
+						
+						
+					}//if-else(회원선택)
 					
 				}//if(삭제확인)
 			});//#listInsertBtn(등록버튼)
@@ -139,12 +169,12 @@
 	        <th>최근접속</th>
 	      </tr>
 	    </thead>
+	    <form action="mDelete" method="post" name="memberFrm">
 	    <tbody style="border-bottom: 2px solid #14213d;">
 	      <c:forEach var="ymdto" items="${map.list}">
 		      <tr>
 		        <td>
-			        <input type="checkbox" class="CheckBox" id="${ymdto.ymno }">
-			        <input id="Ymno" type="hidden" value="${ymdto.ymno }">
+			        <input type="checkbox" class="CheckBox" id="${ymdto.ymno }" name="memberYmno">
 		        </td>
 		        <td id="ID">${ymdto.id }</td>
 		        <td>${ymdto.pw }</td>
@@ -159,6 +189,7 @@
 		      </tr>
 	      </c:forEach>
 	    </tbody>
+	    </form>
 	  </table>
 	  
 	  <!--페이지 넘버링 -->

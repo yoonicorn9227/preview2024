@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.java.www.dto.MemberDto;
 import com.java.www.service.MService;
@@ -35,7 +36,7 @@ public class FController {
 
 		return "index";
 	}// index
-
+	
 	// 1.로그인 페이지
 	@GetMapping("login")
 	public String login() {
@@ -66,6 +67,8 @@ public class FController {
 		return "doLogin";
 	}// doLogin(로그인 접속)
 
+	
+	//3. 로그아웃
 	@RequestMapping("doLogout")
 	public String doLogout(Model model) {
 		session.invalidate();

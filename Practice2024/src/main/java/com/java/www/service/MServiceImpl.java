@@ -70,4 +70,13 @@ public class MServiceImpl implements MService {
 		return map;
 	}// mSelectAll()
 
+	@Override
+	public void mDelete(int[] selectArr) {
+		
+		//Mapper연결
+		memberMapper.mDelete(selectArr);
+		
+		
+	}
+
 }// MServiceImpl
