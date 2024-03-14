@@ -33,12 +33,14 @@ public class MServiceImpl implements MService {
 	}// loginSelect
 
 	@Override // 2. 회원 정보 리스트 가져오기
-	public Map<String, Object> mSelectAll(int page) {
+	public Map<String, Object> mSelectAll(int page, int viewColumnsCount) {
 
+		System.out.println("MServiceImpl viewColumnsCount : "+viewColumnsCount);
+		
 		// 2-1.페이지 넘버링 - ②번째
 		if (page <= 0)
 			page = 1; // 페이지가 0과 같거나 작을경우.
-		int contentCount = 5; // 1pg당 게시글 갯수
+		int contentCount = viewColumnsCount; // 1pg당 게시글 갯수
 		int bottomNum = 5; // 하단 페이징 넘버링 갯수
 		int countAll = memberMapper.mSelectCountAll(); // 2-a. 회원정보 리스트 총갯수
 		int maxPage = (int) Math.ceil((double) (countAll / contentCount));
@@ -60,7 +62,10 @@ public class MServiceImpl implements MService {
 		map.put("maxPage", maxPage);
 		map.put("startPageNum", startPageNum);
 		map.put("endPageNum", endPageNum);
+		map.put("viewColumnsCount", viewColumnsCount);
 
+		
+		
 		System.out.println("maxPage : "+maxPage);
 		System.out.println("startPage : "+startPageNum);
 		System.out.println("endPage : "+endPageNum);

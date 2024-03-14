@@ -31,9 +31,26 @@
 	
 	<script>
 		$(function(){
-			$("#listInsertBtn").click(function(){
+			$("#installBtn").click(function(){
+				
+				
+				
 				alert("test");
-			});//#listInsertBtn(등록버튼)
+			});//#installBtn(등록버튼)
+			
+			
+			
+			
+			$("#ViewCondition").change(function(){
+				
+			//var viewColumnsCount = $("#ViewCondition").val(); // 페이지당 보여질 게시글 갯수 변수
+			
+			viewConditionFrm.submit();
+				
+				
+			});//#ViewCondition
+			
+			
 			
 			$("#listDelBtn").click(function(){
 				if(confirm("삭제 하시겠습니까?")){
@@ -98,8 +115,8 @@
 			$("#searchBtn").click(function(){
 				alert("검색어 test");
 				
-				//alert($("#searchWord").val());
 				$("#searchWord").val();
+				alert($("#searchWord").val());
 				 
 			});//#searchBtn(검색어)
 			
@@ -118,13 +135,30 @@
 		<input type="radio" id="Male" value="male" name="gender" style="display: inline-block; vertical-align: middle;"><label for="male">남자</label>
 		<input type="radio" id="Female" value="female" name="gender" style="display: inline-block; vertical-align: middle;"><label for="female" >여자</label>
 	</div>
-		<form action="searchList" method="get">
-			<div id="searchSection">
-				<select id="ViewCondition">
-					<option value="5">5 개</option>
-					<option value="10">10 개</option>
-					<option value="20">20 개</option>
+		<div id="searchSection">
+			<form action="index" method="get" name="viewConditionFrm">
+				<select id="ViewCondition" name="viewColumnsCount">
+					<c:if test="${map.viewColumnsCount==5 }">
+						<option value="5" selected="selected">5 개</option>
+					</c:if>
+					<c:if test="${map.viewColumnsCount!=5 }">
+						<option value="5">5 개</option>
+					</c:if>
+					<c:if test="${map.viewColumnsCount==10 }">
+						<option value="10" selected="selected">10 개</option>
+					</c:if>
+					<c:if test="${map.viewColumnsCount!=10 }">
+						<option value="10">10 개</option>
+					</c:if>
+					<c:if test="${map.viewColumnsCount==20 }">
+						<option value="20" selected="selected">20 개</option>
+					</c:if>
+					<c:if test="${map.viewColumnsCount!=20 }">
+						<option value="20">20 개</option>
+					</c:if>
 				</select>
+			</form>
+			<form action="">
 				<select id="searchCategory">
 					<option value="all">전체</option>
 					<option value="Name">이름</option>
@@ -134,8 +168,8 @@
 				</select>
 				<input type="text" id="searchWord" name="" placeholder=" ※검색어를 입력하세요.">
 				<input type="button" id="searchBtn" value="검 색">
-			</div>
-		</form>
+			</form>
+		</div>
 	</div>
 	<!--검색어 찾기 끝 -->
 	
@@ -201,7 +235,7 @@
 	  		<li class="num"><i class="fa fa-chevron-circle-left" aria-hidden="true"></i></li>
 	  	</c:if>
 	  	<c:if test="${map.page>1 }">
-	  		<a href="index?page=${map.page-1 }"><li class="num"><i class="fa fa-chevron-circle-left" aria-hidden="true"></i></li></a>
+	  		<a href="index?page=${map.page-1 }&viewColumnsCount=${map.viewColumnsCount}"><li class="num"><i class="fa fa-chevron-circle-left" aria-hidden="true"></i></li></a>
 	  	</c:if>
 	  	
 	  	<!--페이지 넘버링-->
@@ -210,25 +244,25 @@
 		  		 <li class="num numOn">${i}</li>
 			</c:if>	  		
 			<c:if test="${map.page!=i }">
-		  		<a href="index?page=${i }" style="text-decoration: none;"><li class="num">${i}</li></a>
+		  		<a href="index?page=${i }&viewColumnsCount=${map.viewColumnsCount}" style="text-decoration: none;"><li class="num">${i}</li></a>
 			</c:if>	  		
 	  	</c:forEach>
 	  	
 	  	<!--다음 페이지-->
 	  	<c:if test="${map.page<map.maxPage }">
-	  		<a href="index?page=${map.page+1 }"><li class="num"><i class="fa fa-chevron-circle-right" aria-hidden="true"></i></li></a>
+	  		<a href="index?page=${map.page+1 }&viewColumnsCount=${map.viewColumnsCount}"><li class="num"><i class="fa fa-chevron-circle-right" aria-hidden="true"></i></li></a>
 	  	</c:if>
 	  	<c:if test="${map.page>=map.maxPage }">
 	  		<li class="num"><i class="fa fa-chevron-circle-right" aria-hidden="true"></i></li>
 	  	</c:if>
 	  	
 	  	<!-- 마지막 페이지 -->
-	  	<a href="index?page=${map.maxPage }"><li class="num"><i class="fa fa-forward" aria-hidden="true"></i></li></a>
+	  	<a href="index?page=${map.maxPage }&viewColumnsCount=${map.viewColumnsCount}"><li class="num"><i class="fa fa-forward" aria-hidden="true"></i></li></a>
 	  </ul>
 	  <!--페이지 넘버링 끝 -->
 	<!--▣ 버튼 ▣ -->
 	<div class="button-container">
-	  <input type="button" id="listInsertBtn" value="등록">
+	  <input type="button" id="installBtn" value="실행">
 	  <input type="button" id="listDelBtn" value="삭제">
 	</div>
 	<!--▣ 버튼 ▣-->

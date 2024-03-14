@@ -26,16 +26,19 @@ public class FController {
 	HttpSession session;
 
 	@GetMapping({"/","index"})
-	public String index(Model model, @RequestParam(defaultValue = "1") int page) {
+	public String index(Model model, @RequestParam(defaultValue = "1") int page, @RequestParam(defaultValue = "5") int viewColumnsCount) {
 
 		// service 연결
-		Map<String, Object> map = mService.mSelectAll(page); //ArrayList → Map으로 변경
+		Map<String, Object> map = mService.mSelectAll(page, viewColumnsCount); //ArrayList → Map으로 변경
 
+		System.out.println("선택 갯수 : " +viewColumnsCount);
+		
 		// model 저장 후 전송
 		model.addAttribute("map", map);
 
 		return "index";
 	}// index
+	
 	
 	// 1.로그인 페이지
 	@GetMapping("login")
