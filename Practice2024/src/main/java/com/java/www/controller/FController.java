@@ -26,10 +26,14 @@ public class FController {
 	HttpSession session;
 
 	@GetMapping({"/","index"})
-	public String index(Model model, @RequestParam(defaultValue = "1") int page, @RequestParam(defaultValue = "5") int viewColumnsCount) {
+	public String index(Model model, @RequestParam(defaultValue = "1") int page, @RequestParam(defaultValue = "5") int viewColumnsCount, @RequestParam(required = false) String SearchCategory, @RequestParam(required = false) String SearchWord) {
 
+		//확인용
+		System.out.println("카테고리 : "+SearchCategory);
+		System.out.println("검색어 : "+SearchWord);
+		
 		// service 연결
-		Map<String, Object> map = mService.mSelectAll(page, viewColumnsCount); //ArrayList → Map으로 변경
+		Map<String, Object> map = mService.mSelectAll(page, viewColumnsCount,SearchCategory, SearchWord); //ArrayList → Map으로 변경
 
 		System.out.println("선택 갯수 : " +viewColumnsCount);
 		

@@ -5,6 +5,12 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <!DOCTYPE html>
 <html>
+	<c:if test="${session_id!=null }">
+	 	<script>
+	 		alert("※로그인 상태입니다.");
+	 		location.href="/";
+	 	</script>
+	</c:if>
 	<head>
 		<meta charset="UTF-8">
 		<title>Yoonicorn 로그인</title>

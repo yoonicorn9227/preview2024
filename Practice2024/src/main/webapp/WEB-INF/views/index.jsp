@@ -33,23 +33,16 @@
 		$(function(){
 			$("#installBtn").click(function(){
 				
-				
-				
 				alert("test");
 			});//#installBtn(등록버튼)
 			
 			
-			
-			
 			$("#ViewCondition").change(function(){
+				//var viewColumnsCount = $("#ViewCondition").val(); // 페이지당 보여질 게시글 갯수 변수
 				
-			//var viewColumnsCount = $("#ViewCondition").val(); // 페이지당 보여질 게시글 갯수 변수
-			
-			viewConditionFrm.submit();
-				
+				SearchFrm.submit();
 				
 			});//#ViewCondition
-			
 			
 			
 			$("#listDelBtn").click(function(){
@@ -71,7 +64,7 @@
 						alert("선택된 회원정보가 없습니다.");
 					} else {
 						alert(Select_length);
-						//♠Ajax실행
+						//♠Ajax실행(삭제)
 						$.ajax({
 							url:"/member/mDelete",
 							type:"post",
@@ -83,15 +76,13 @@
 								if(data=="성공"){
 								alert("회원정보가 삭제되었습니다.");
 								location.href="/";
-								}
+								}//if(성공시)
 							},//success
 							error:function(){
 								alert("실패");
 							}//error
 							
 						});//Ajax
-						
-						
 						
 					}//if-else(회원선택)
 					
@@ -113,13 +104,17 @@
 			});//#SelectAll(전체선택)
 			
 			$("#searchBtn").click(function(){
-				alert("검색어 test");
-				
-				$("#searchWord").val();
-				alert($("#searchWord").val());
+				if($("#searchWord").val().length<1){
+					alert("※ 검색어를 입력해주세요.")
+					$("#searchWord").focus();
+					return false;
+				}//if(검색어 미입력시)
+					
+					SearchFrm.submit(); //<form action="index" method="get" name="searchFrm"> 태그의 action주소로 이동
 				 
 			});//#searchBtn(검색어)
-			
+			var search_stay=$("#searchWord_hidden").val(); //검색창 검색어 유지기능
+			$("#searchWord").val(search_stay); //검색어 유지 및 검색어 보여지는 갯수 유지
 		});//제이쿼리 최신
 	</script>
 	<body>
@@ -136,9 +131,9 @@
 		<input type="radio" id="Female" value="female" name="gender" style="display: inline-block; vertical-align: middle;"><label for="female" >여자</label>
 	</div>
 		<div id="searchSection">
-			<form action="index" method="get" name="viewConditionFrm">
+			<form action="index" method="get" name="SearchFrm">
 				<select id="ViewCondition" name="viewColumnsCount">
-					<c:if test="${map.viewColumnsCount==5 }">
+					<c:if test="${map.viewColumnsCount==5 }"> <!-- 게시글 보여지는 갯수 선택유지 -->
 						<option value="5" selected="selected">5 개</option>
 					</c:if>
 					<c:if test="${map.viewColumnsCount!=5 }">
@@ -157,16 +152,46 @@
 						<option value="20">20 개</option>
 					</c:if>
 				</select>
-			</form>
-			<form action="">
-				<select id="searchCategory">
-					<option value="all">전체</option>
+				<select id="searchCategory" name="SearchCategory">
+					<c:if test="${map.SearchCategory ==null}"> <!-- 카테고리 유지 -->
+					<option value="All" selected="selected">전체</option>
+					</c:if>
+					<c:if test="${map.SearchCategory !=null}">
+					<option value="All">전체</option>
+					</c:if>
+					<c:if test="${map.SearchCategory =='Name'}">
+					<option value="Name" selected="selected">이름</option>
+					</c:if>
+					<c:if test="${map.SearchCategory !='Name'}">
 					<option value="Name">이름</option>
+					</c:if>
+					<c:if test="${map.SearchCategory =='Address'}">
+					<option value="Address" selected="selected">주소</option>
+					</c:if>
+					<c:if test="${map.SearchCategory !='Address'}">
+					<option value="Address">주소</option>
+					</c:if>
+					<c:if test="${map.SearchCategory =='Id'}">
+					<option value="Id" selected="selected">아이디</option>
+					</c:if>
+					<c:if test="${map.SearchCategory !='Id'}">
 					<option value="Id">아이디</option>
-					<option value="PhoneNum">연락처</option>
-					<option value="Pnum">주민번호</option>
+					</c:if>
+					<c:if test="${map.SearchCategory =='Phone'}">
+					<option value="Phone" selected="selected">연락처</option>
+					</c:if>
+					<c:if test="${map.SearchCategory !='Phone'}">
+					<option value="Phone">연락처</option>
+					</c:if>
+					<c:if test="${map.SearchCategory =='Pnumber'}">
+					<option value="Pnumber" selected="selected">주민번호</option>
+					</c:if>
+					<c:if test="${map.SearchCategory !='Pnumber'}">
+					<option value="Pnumber">주민번호</option>
+					</c:if>
 				</select>
-				<input type="text" id="searchWord" name="" placeholder=" ※검색어를 입력하세요.">
+				<input type="text" id="searchWord" name="SearchWord" placeholder=" ※검색어를 입력하세요.">
+				<input type="hidden" id="searchWord_hidden" value="${map.SearchWord }"> <!-- 검색어 검색창 유지기능  -->
 				<input type="button" id="searchBtn" value="검 색">
 			</form>
 		</div>
@@ -204,25 +229,25 @@
 	      </tr>
 	    </thead>
 	    <form action="mDelete" method="post" name="memberFrm">
-	    <tbody style="border-bottom: 2px solid #14213d;">
-	      <c:forEach var="ymdto" items="${map.list}">
-		      <tr>
-		        <td>
-			        <input type="checkbox" class="CheckBox" id="${ymdto.ymno }" name="memberYmno">
-		        </td>
-		        <td id="ID">${ymdto.id }</td>
-		        <td>${ymdto.pw }</td>
-		        <td>${ymdto.name }</td>
-		        <td>${ymdto.gender}</td>
-		        <td>${ymdto.phone}</td>
-		        <td>${ymdto.address}</td>
-		        <td>${ymdto.email}</td>
-		        <td>${ymdto.pnumber}</td>
-		        <td>${ymdto.login_num}</td>
-		        <td><fmt:formatDate value="${ymdto.recent_time}" pattern="YYYY-MM-dd HH:mm:ss"/> </td>
-		      </tr>
-	      </c:forEach>
-	    </tbody>
+		    <tbody style="border-bottom: 2px solid #14213d;">
+		      <c:forEach var="ymdto" items="${map.list}">
+			      <tr>
+			        <td>
+				        <input type="checkbox" class="CheckBox" id="${ymdto.ymno }" name="memberYmno">
+			        </td>
+			        <td id="ID">${ymdto.id }</td>
+			        <td>${ymdto.pw }</td>
+			        <td>${ymdto.name }</td>
+			        <td>${ymdto.gender}</td>
+			        <td>${ymdto.phone}</td>
+			        <td>${ymdto.address}</td>
+			        <td>${ymdto.email}</td>
+			        <td>${ymdto.pnumber}</td>
+			        <td>${ymdto.login_num}</td>
+			        <td><fmt:formatDate value="${ymdto.recent_time}" pattern="YYYY-MM-dd HH:mm:ss"/> </td>
+			      </tr>
+		      </c:forEach>
+		    </tbody>
 	    </form>
 	  </table>
 	  
@@ -235,7 +260,7 @@
 	  		<li class="num"><i class="fa fa-chevron-circle-left" aria-hidden="true"></i></li>
 	  	</c:if>
 	  	<c:if test="${map.page>1 }">
-	  		<a href="index?page=${map.page-1 }&viewColumnsCount=${map.viewColumnsCount}"><li class="num"><i class="fa fa-chevron-circle-left" aria-hidden="true"></i></li></a>
+	  		<a href="index?page=${map.page-1 }&viewColumnsCount=${map.viewColumnsCount}&SearchCategory=${map.SearchCategory}&SearchWord=${map.SearchWord}"><li class="num"><i class="fa fa-chevron-circle-left" aria-hidden="true"></i></li></a>
 	  	</c:if>
 	  	
 	  	<!--페이지 넘버링-->
@@ -244,20 +269,20 @@
 		  		 <li class="num numOn">${i}</li>
 			</c:if>	  		
 			<c:if test="${map.page!=i }">
-		  		<a href="index?page=${i }&viewColumnsCount=${map.viewColumnsCount}" style="text-decoration: none;"><li class="num">${i}</li></a>
+		  		<a href="index?page=${i }&viewColumnsCount=${map.viewColumnsCount}&SearchCategory=${map.SearchCategory}&SearchWord=${map.SearchWord}" style="text-decoration: none;"><li class="num">${i}</li></a>
 			</c:if>	  		
 	  	</c:forEach>
 	  	
 	  	<!--다음 페이지-->
 	  	<c:if test="${map.page<map.maxPage }">
-	  		<a href="index?page=${map.page+1 }&viewColumnsCount=${map.viewColumnsCount}"><li class="num"><i class="fa fa-chevron-circle-right" aria-hidden="true"></i></li></a>
+	  		<a href="index?page=${map.page+1 }&viewColumnsCount=${map.viewColumnsCount}&SearchCategory=${map.SearchCategory}&SearchWord=${map.SearchWord}"><li class="num"><i class="fa fa-chevron-circle-right" aria-hidden="true"></i></li></a>
 	  	</c:if>
 	  	<c:if test="${map.page>=map.maxPage }">
 	  		<li class="num"><i class="fa fa-chevron-circle-right" aria-hidden="true"></i></li>
 	  	</c:if>
 	  	
 	  	<!-- 마지막 페이지 -->
-	  	<a href="index?page=${map.maxPage }&viewColumnsCount=${map.viewColumnsCount}"><li class="num"><i class="fa fa-forward" aria-hidden="true"></i></li></a>
+	  	<a href="index?page=${map.maxPage }&viewColumnsCount=${map.viewColumnsCount}&SearchCategory=${map.SearchCategory}&SearchWord=${map.SearchWord}"><li class="num"><i class="fa fa-forward" aria-hidden="true"></i></li></a>
 	  </ul>
 	  <!--페이지 넘버링 끝 -->
 	<!--▣ 버튼 ▣ -->

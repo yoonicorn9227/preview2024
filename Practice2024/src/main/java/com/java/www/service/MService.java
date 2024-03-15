@@ -10,7 +10,7 @@ public interface MService {
 	MemberDto loginSelect(MemberDto mdto);
 
 	//2. 회원정보 리스트 가져오기
-	Map<String, Object> mSelectAll(int page, int viewColumnsCount);
+	Map<String, Object> mSelectAll(int page, int viewColumnsCount, String searchCategory, String searchWord);
 
 	void mDelete(int[] selectArr);
 

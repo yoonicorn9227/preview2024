@@ -3,7 +3,8 @@
 <mapper namespace="com.java.www.mapper.MemberMapper">
 	<!-- 1. 로그인 접속 -->
 	<select id="loginSelect" resultType="com.java.www.dto.MemberDto">
-		select * from ymember where id=#{id} and pw=#{pw}
+		select * from ymember where
+		id=#{id} and pw=#{pw}
 	</select>
 	<!-- 1-a 로그인 최근접속 시간 -->
 	<update id="loginTime">
@@ -12,29 +13,51 @@
 
 	<!-- 1-b. 로그인 접속횟수 -->
 	<update id="loginCount">
-		update ymember set login_num=login_num+1 where id =#{id}
+		update ymember set login_num=login_num+1 where id
+		=#{id}
 	</update>
 
 	<!-- 2. 회원정보 리스트 가져오기 -->
 	<select id="mSelectAll" resultType="com.java.www.dto.MemberDto">
-		select * from (select
-		row_number() over(order by ymno desc) rnum, a.* from
-		ymember a) where
+		select * from
+		(select row_number() over(order by ymno desc) rnum, a.* from
+		ymember a
+		<if test="SearchCategory=='Name' or SearchCategory=='Address' or SearchCategory=='Id' or SearchCategory=='Phone' or SearchCategory=='Pnumber'">
+			where ${SearchCategory} like '%'||#{SearchWord}||'%'
+		</if>
+		<if test="SearchCategory=='All'">
+			where name like '%'||#{SearchWord}||'%' or address like
+			'%'||#{SearchWord}||'%' or id like '%'||#{SearchWord}||'%' or
+			phone like '%'||#{SearchWord}||'%'
+			or pnumber like '%'||#{SearchWord}||'%'
+		</if>
+		) where
 		rnum between #{startContRowNum} and #{endContRowNum}
 	</select>
+
 	<!-- 2-a. 회원정보 리스트 총갯수 -->
 	<select id="mSelectCountAll" resultType="int">
 		select count(*) from ymember
+		<if test="SearchCategory=='Name' or SearchCategory=='Address' or SearchCategory=='Id' or SearchCategory=='Phone' or SearchCategory=='Pnumber'">
+			where ${SearchCategory} like '%'||#{SearchWord}||'%'
+		</if>
+		<if test="SearchCategory=='All'">
+			where name like '%'||#{SearchWord}||'%' or address like
+			'%'||#{SearchWord}||'%' or id like '%'||#{SearchWord}||'%' or phone
+			like '%'||#{SearchWord}||'%' or pnumber like '%'||#{SearchWord}||'%'
+		</if>
 	</select>
-	
-	
+
+
 	<!-- 2-b. 회원정보 리스트 삭제 -->
 	<delete id="mDelete">
 		delete ymember where
-		<foreach collection="selectArr" index="index" item="selectArr1" open="(" separator="or" close=")">
-		ymno=#{selectArr1}
+		<foreach collection="selectArr" index="index"
+			item="selectArr1" open="(" separator="or" close=")">
+			ymno=#{selectArr1}
 		</foreach>
-		<!-- collection : 전달받은 인자값, index: 반복되는 구문번호 0부터 순착적으로 증가, item:전달받은 인자값 alias 명으로대체 -->
+		<!-- collection : 전달받은 인자값, index: 반복되는 구문번호 0부터 순착적으로 증가, item:전달받은 인자값 
+			alias 명으로대체 -->
 	</delete>
 
 </mapper>
