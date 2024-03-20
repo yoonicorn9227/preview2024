@@ -235,7 +235,7 @@
 	        <th>E-mail</th>
 	        <th>주민번호</th>
 	        <th>접속횟수</th>
-	        <th>최근접속</th>
+	        <th>최근접속ㄴ</th>
 	      </tr>
 	    </thead>
 	    <form action="mDelete" method="post" name="memberFrm">
