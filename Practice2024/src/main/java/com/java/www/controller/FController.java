@@ -25,25 +25,36 @@ public class FController {
 	@Autowired
 	HttpSession session;
 
-	@GetMapping({"/","index"})
-	public String index(Model model, @RequestParam(defaultValue = "1") int page, @RequestParam(defaultValue = "5") int viewColumnsCount, @RequestParam(required = false) String SearchCategory, @RequestParam(required = false) String SearchWord) {
+	@GetMapping({ "/", "index" })
+	public String index(Model model, @RequestParam(defaultValue = "1") int page,
+			@RequestParam(defaultValue = "all") String gender, @RequestParam(defaultValue = "5") int viewColumnsCount,
+			@RequestParam(defaultValue = "All") String SearchCategory,
+			@RequestParam(required = false) String SearchWord) {
 
-		//확인용
-		System.out.println("카테고리 : "+SearchCategory);
-		System.out.println("검색어 : "+SearchWord);
-		
+		// 확인용
+		System.out.println("카테고리 : " + SearchCategory);
+		System.out.println("검색어 : " + SearchWord);
+		System.out.println("성별 : " + gender);
+
+		if (gender.equals("male")) {
+			gender = "남";
+		} else if (gender.equals("female")) {
+			gender = "여";
+		}//if(남자 여자 변환)
+
 		// service 연결
-		Map<String, Object> map = mService.mSelectAll(page, viewColumnsCount,SearchCategory, SearchWord); //ArrayList → Map으로 변경
+		Map<String, Object> map = mService.mSelectAll(page, gender, viewColumnsCount, SearchCategory, SearchWord); // ArrayList
+		// → Map으로
+		// 변경
 
-		System.out.println("선택 갯수 : " +viewColumnsCount);
-		
+		System.out.println("선택 갯수 : " + viewColumnsCount);
+
 		// model 저장 후 전송
 		model.addAttribute("map", map);
 
 		return "index";
 	}// index
-	
-	
+
 	// 1.로그인 페이지
 	@GetMapping("login")
 	public String login() {
@@ -74,8 +85,7 @@ public class FController {
 		return "doLogin";
 	}// doLogin(로그인 접속)
 
-	
-	//3. 로그아웃
+	// 3. 로그아웃
 	@RequestMapping("doLogout")
 	public String doLogout(Model model) {
 		session.invalidate();

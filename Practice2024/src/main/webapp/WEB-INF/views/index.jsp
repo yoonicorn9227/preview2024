@@ -32,8 +32,7 @@
 	<script>
 		$(function(){
 			$("#installBtn").click(function(){
-				
-				alert("test");
+				location.href="index"
 			});//#installBtn(등록버튼)
 			
 			
@@ -87,12 +86,10 @@
 					}//if-else(회원선택)
 					
 				}//if(삭제확인)
-			});//#listInsertBtn(등록버튼)
+			});//#listDelBtn(선택 삭제버튼)
 			
 			var SelectAll_condition=0; //전체선택 상태(0:전체선택 안됨, 1:전체선택됨)
-			$("#SelectAll").click(function(){
-				alert("전체선택 버튼 test");
-				
+				$("#SelectAll").click(function(){
 				if(SelectAll_condition==0){
 					$(".CheckBox").prop("checked",true);
 					SelectAll_condition=1
@@ -100,21 +97,16 @@
 					$(".CheckBox").prop("checked",false);
 					SelectAll_condition=0
 				}//if-else(전체선택  || 전체선택 해제)
-				
 			});//#SelectAll(전체선택)
 			
 			$("#searchBtn").click(function(){
-				if($("#searchWord").val().length<1){
-					alert("※ 검색어를 입력해주세요.")
-					$("#searchWord").focus();
-					return false;
-				}//if(검색어 미입력시)
-					
 					SearchFrm.submit(); //<form action="index" method="get" name="searchFrm"> 태그의 action주소로 이동
 				 
-			});//#searchBtn(검색어)
+			});//#searchBtn(검색어 검색)
 			var search_stay=$("#searchWord_hidden").val(); //검색창 검색어 유지기능
 			$("#searchWord").val(search_stay); //검색어 유지 및 검색어 보여지는 갯수 유지
+		
+			
 		});//제이쿼리 최신
 	</script>
 	<body>
@@ -124,14 +116,32 @@
 	
 	<!--검색어 찾기 -->
 	<div id="search-container">
-	
-	<div id="seletBox" style="width: 250px; padding-top: 50px;">
-		<input type="button" id="SelectAll" value="전체선택" style="font-weight: 700; margin-right: 10px;">
-		<input type="radio" id="Male" value="male" name="gender" style="display: inline-block; vertical-align: middle;"><label for="male">남자</label>
-		<input type="radio" id="Female" value="female" name="gender" style="display: inline-block; vertical-align: middle;"><label for="female" >여자</label>
-	</div>
-		<div id="searchSection">
-			<form action="index" method="get" name="SearchFrm">
+		<form action="index" method="get" name="SearchFrm" style="width: 100%; display: flex; justify-content: space-between;">
+			<div id="seletBox" style="width: 280px; padding-top: 50px;">
+				<input type="button" id="SelectAll" value="전체선택" style="font-weight: 700; margin-right: 10px;">
+				<c:if test="${map.gender ==null }">
+				<input type="radio" id="All_Gender" value="all" name="gender" checked="checked" style="display: inline-block; vertical-align: middle;"><label for="female" >전체</label>
+				</c:if>
+				<c:if test="${map.gender=='all' }">
+				<input type="radio" id="All_Gender" value="all" name="gender" checked="checked" style="display: inline-block; vertical-align: middle;"><label for="female" >전체</label>
+				</c:if>
+				<c:if test="${map.gender!='all' }">
+				<input type="radio" id="All_Gender" value="all" name="gender" checked="checked" style="display: inline-block; vertical-align: middle;"><label for="female" >전체</label>
+				</c:if>
+				<c:if test="${map.gender=='남' }">
+				<input type="radio" id="Male" value="male" name="gender" checked="checked" style="display: inline-block; vertical-align: middle; color: red;"><label for="male">남자</label>
+				</c:if>
+				<c:if test="${map.gender!='남' }">
+				<input type="radio" id="Male" value="male" name="gender" style="display: inline-block; vertical-align: middle;"><label for="male">남자</label>
+				</c:if>
+				<c:if test="${map.gender=='여' }">
+				<input type="radio" id="Female" value="female" name="gender" checked="checked" style="display: inline-block; vertical-align: middle;"><label for="female" >여자</label>
+				</c:if>
+				<c:if test="${map.gender!='여' }">
+				<input type="radio" id="Female" value="female" name="gender"  style="display: inline-block; vertical-align: middle;"><label for="female" >여자</label>
+				</c:if>
+			</div>
+			<div id="searchSection">
 				<select id="ViewCondition" name="viewColumnsCount">
 					<c:if test="${map.viewColumnsCount==5 }"> <!-- 게시글 보여지는 갯수 선택유지 -->
 						<option value="5" selected="selected">5 개</option>
@@ -190,9 +200,9 @@
 					<option value="Pnumber">주민번호</option>
 					</c:if>
 				</select>
-				<input type="text" id="searchWord" name="SearchWord" placeholder=" ※검색어를 입력하세요.">
-				<input type="hidden" id="searchWord_hidden" value="${map.SearchWord }"> <!-- 검색어 검색창 유지기능  -->
-				<input type="button" id="searchBtn" value="검 색">
+					<input type="text" id="searchWord" name="SearchWord" placeholder=" ※검색어를 입력하세요.">
+					<input type="hidden" id="searchWord_hidden" value="${map.SearchWord }"> <!-- 검색어 검색창 유지기능  -->
+					<input type="button" id="searchBtn" value="검 색">
 			</form>
 		</div>
 	</div>
@@ -238,7 +248,12 @@
 			        <td id="ID">${ymdto.id }</td>
 			        <td>${ymdto.pw }</td>
 			        <td>${ymdto.name }</td>
-			        <td>${ymdto.gender}</td>
+			        <c:if test="${ymdto.gender=='남'}">
+			        <td style="color: blue; font-weight: 700">${ymdto.gender}</td>
+			        </c:if>
+			        <c:if test="${ymdto.gender=='여'}">
+			        <td style="color: red; font-weight: 700">${ymdto.gender}</td>
+			        </c:if>
 			        <td>${ymdto.phone}</td>
 			        <td>${ymdto.address}</td>
 			        <td>${ymdto.email}</td>
@@ -254,13 +269,13 @@
 	  <!--페이지 넘버링 -->
 	  <ul id="PageNum" style="display: flex; list-style: none;">
 	  	<!--첫번째 페이지-->
-	  	<a href="index?page=1"><li class="num"><i class="fa fa-backward" aria-hidden="true"></i></li></a>
+	  	<a href="index?page=1&gender=${map.gender }&viewColumnsCount=${map.viewColumnsCount}&SearchCategory=${map.SearchCategory}&SearchWord=${map.SearchWord}"><li class="num"><i class="fa fa-backward" aria-hidden="true"></i></li></a>
 	  	<!--이전 페이지-->
 	  	<c:if test="${map.page<=1 }">
 	  		<li class="num"><i class="fa fa-chevron-circle-left" aria-hidden="true"></i></li>
 	  	</c:if>
 	  	<c:if test="${map.page>1 }">
-	  		<a href="index?page=${map.page-1 }&viewColumnsCount=${map.viewColumnsCount}&SearchCategory=${map.SearchCategory}&SearchWord=${map.SearchWord}"><li class="num"><i class="fa fa-chevron-circle-left" aria-hidden="true"></i></li></a>
+	  		<a href="index?page=${map.page-1 }&gender=${map.gender }&viewColumnsCount=${map.viewColumnsCount}&SearchCategory=${map.SearchCategory}&SearchWord=${map.SearchWord}"><li class="num"><i class="fa fa-chevron-circle-left" aria-hidden="true"></i></li></a>
 	  	</c:if>
 	  	
 	  	<!--페이지 넘버링-->
@@ -269,20 +284,20 @@
 		  		 <li class="num numOn">${i}</li>
 			</c:if>	  		
 			<c:if test="${map.page!=i }">
-		  		<a href="index?page=${i }&viewColumnsCount=${map.viewColumnsCount}&SearchCategory=${map.SearchCategory}&SearchWord=${map.SearchWord}" style="text-decoration: none;"><li class="num">${i}</li></a>
+		  		<a href="index?page=${i }&gender=${map.gender }&viewColumnsCount=${map.viewColumnsCount}&SearchCategory=${map.SearchCategory}&SearchWord=${map.SearchWord}" style="text-decoration: none;"><li class="num">${i}</li></a>
 			</c:if>	  		
 	  	</c:forEach>
 	  	
 	  	<!--다음 페이지-->
 	  	<c:if test="${map.page<map.maxPage }">
-	  		<a href="index?page=${map.page+1 }&viewColumnsCount=${map.viewColumnsCount}&SearchCategory=${map.SearchCategory}&SearchWord=${map.SearchWord}"><li class="num"><i class="fa fa-chevron-circle-right" aria-hidden="true"></i></li></a>
+	  		<a href="index?page=${map.page+1 }&gender=${map.gender }&viewColumnsCount=${map.viewColumnsCount}&SearchCategory=${map.SearchCategory}&SearchWord=${map.SearchWord}"><li class="num"><i class="fa fa-chevron-circle-right" aria-hidden="true"></i></li></a>
 	  	</c:if>
 	  	<c:if test="${map.page>=map.maxPage }">
 	  		<li class="num"><i class="fa fa-chevron-circle-right" aria-hidden="true"></i></li>
 	  	</c:if>
 	  	
 	  	<!-- 마지막 페이지 -->
-	  	<a href="index?page=${map.maxPage }&viewColumnsCount=${map.viewColumnsCount}&SearchCategory=${map.SearchCategory}&SearchWord=${map.SearchWord}"><li class="num"><i class="fa fa-forward" aria-hidden="true"></i></li></a>
+	  	<a href="index?page=${map.maxPage }&gender=${map.gender }&viewColumnsCount=${map.viewColumnsCount}&SearchCategory=${map.SearchCategory}&SearchWord=${map.SearchWord}"><li class="num"><i class="fa fa-forward" aria-hidden="true"></i></li></a>
 	  </ul>
 	  <!--페이지 넘버링 끝 -->
 	<!--▣ 버튼 ▣ -->

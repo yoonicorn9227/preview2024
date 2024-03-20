@@ -22,14 +22,20 @@
 		select * from
 		(select row_number() over(order by ymno desc) rnum, a.* from
 		ymember a
-		<if test="SearchCategory=='Name' or SearchCategory=='Address' or SearchCategory=='Id' or SearchCategory=='Phone' or SearchCategory=='Pnumber'">
-			where ${SearchCategory} like '%'||#{SearchWord}||'%'
+		<if test="gender=='all'">
+		where (gender='남' or gender ='여')
 		</if>
-		<if test="SearchCategory=='All'">
-			where name like '%'||#{SearchWord}||'%' or address like
+		<if test="gender!='all'">
+		where gender=#{gender}
+		</if>
+		<if test="SearchCategory!='All'">
+			and ${SearchCategory} like '%'||#{SearchWord}||'%'
+		</if>
+		<if test="SearchCategory=='All'and SearchWord!=null">
+			and (name like '%'||#{SearchWord}||'%' or address like
 			'%'||#{SearchWord}||'%' or id like '%'||#{SearchWord}||'%' or
 			phone like '%'||#{SearchWord}||'%'
-			or pnumber like '%'||#{SearchWord}||'%'
+			or pnumber like '%'||#{SearchWord}||'%')
 		</if>
 		) where
 		rnum between #{startContRowNum} and #{endContRowNum}
@@ -38,13 +44,20 @@
 	<!-- 2-a. 회원정보 리스트 총갯수 -->
 	<select id="mSelectCountAll" resultType="int">
 		select count(*) from ymember
-		<if test="SearchCategory=='Name' or SearchCategory=='Address' or SearchCategory=='Id' or SearchCategory=='Phone' or SearchCategory=='Pnumber'">
-			where ${SearchCategory} like '%'||#{SearchWord}||'%'
+		<if test="gender=='all'">
+		where (gender='남' or gender ='여')
 		</if>
-		<if test="SearchCategory=='All'">
-			where name like '%'||#{SearchWord}||'%' or address like
-			'%'||#{SearchWord}||'%' or id like '%'||#{SearchWord}||'%' or phone
-			like '%'||#{SearchWord}||'%' or pnumber like '%'||#{SearchWord}||'%'
+		<if test="gender!='all'">
+		where gender=#{gender}
+		</if>
+		<if test="SearchCategory!='All'">
+			and ${SearchCategory} like '%'||#{SearchWord}||'%'
+		</if>
+		<if test="SearchCategory=='All'and SearchWord!=null">
+			and (name like '%'||#{SearchWord}||'%' or address like
+			'%'||#{SearchWord}||'%' or id like '%'||#{SearchWord}||'%' or
+			phone like '%'||#{SearchWord}||'%'
+			or pnumber like '%'||#{SearchWord}||'%')
 		</if>
 	</select>
 
