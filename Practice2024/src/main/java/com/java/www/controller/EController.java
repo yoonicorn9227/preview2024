@@ -13,4 +13,8 @@ public class EController {
 		return "/email/mailList";
 	}//getEmailList() ◀받은 이메일
 	
+	@GetMapping("sendList")
+	public String sendEmailList() {
+		return "/email/sendList";
+	}//sendEmailList() ◀보낸 이메일
 }//EController

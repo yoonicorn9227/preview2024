@@ -43,6 +43,12 @@
 				
 			});//#ViewCondition
 			
+			$("#searchBtn").click(function(){
+				SearchFrm.submit(); //<form action="index" method="get" name="searchFrm"> 태그의 action주소로 이동
+			 
+			});//#searchBtn(검색어 검색)
+			var search_stay=$("#searchWord_hidden").val(); //검색창 검색어 유지기능
+			$("#searchWord").val(search_stay); //검색어 유지 및 검색어 보여지는 갯수 유지
 			
 			$("#listDelBtn").click(function(){
 				if(confirm("삭제 하시겠습니까?")){
@@ -99,12 +105,7 @@
 				}//if-else(전체선택  || 전체선택 해제)
 			});//#SelectAll(전체선택)
 			
-			$("#searchBtn").click(function(){
-					SearchFrm.submit(); //<form action="index" method="get" name="searchFrm"> 태그의 action주소로 이동
-				 
-			});//#searchBtn(검색어 검색)
-			var search_stay=$("#searchWord_hidden").val(); //검색창 검색어 유지기능
-			$("#searchWord").val(search_stay); //검색어 유지 및 검색어 보여지는 갯수 유지
+			
 		
 			
 		});//제이쿼리 최신
@@ -117,7 +118,7 @@
 	<!--검색어 찾기 -->
 	<div id="search-container">
 		<form action="index" method="get" name="SearchFrm" style="width: 100%; display: flex; justify-content: space-between;">
-			<div id="seletBox" style="width: 280px; padding-top: 50px;">
+			<div id="selectBox" style="width: 280px; padding-top: 50px;">
 				<input type="button" id="SelectAll" value="전체선택" style="font-weight: 700; margin-right: 10px;">
 				<c:if test="${map.gender ==null }">
 				<input type="radio" id="All_Gender" value="all" name="gender" checked="checked" style="display: inline-block; vertical-align: middle;"><label for="female" >전체</label>

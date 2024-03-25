@@ -15,7 +15,7 @@
 	  <strong style="font-size: 20px; color: #c9184a;">${session_name }님</strong>
 	  <a class="sideMenu" href="#">My Page</a>
 	  <a class="sideMenu" href="../email/mailList">받은 이메일</a>
-	  <a class="sideMenu" href="#">보낸 이메일</a>
+	  <a class="sideMenu" href="../email/sendList">보낸 이메일</a>
 	  <a class="sideMenu" href="#">휴지통</a>
 	  <a class="sideMenu" href="#">공공데이터</a>
 	  <a class="sideMenu" href="#">관리자페이지</a>

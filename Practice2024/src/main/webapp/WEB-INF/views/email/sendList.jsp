@@ -7,10 +7,10 @@
 <html>
 	<head>
 		<meta charset="UTF-8">
-		<title>받은 메일함</title>
+		<title>보낸 메일함</title>
 	</head>
 	<!-- ♣♣♣ CSS ♣♣♣ -->
-	<link href="../css/mailList.css" rel="stylesheet">
+	<link href="../css/sendList.css" rel="stylesheet">
 	
 	<!-- ♣♣♣ font ♣♣♣ -->
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
@@ -57,7 +57,7 @@
 	
 	<!--▼▼▼ 회원정보 리스트 전체테두리 ▼▼▼ -->
 	<div class="table-container">
-	<h1 style="font-size: 70px; font-weight: 700;">받은 이메일</h1>
+	<h1 style="font-size: 70px; font-weight: 700;">보낸 이메일</h1>
 	
 	<!--검색어 찾기 -->
 	<div id="search-container">
@@ -70,18 +70,18 @@
 			<input type="radio" id="Non_read" value="non_read" name="readCon" style="display: inline-block; vertical-align: middle;"><label for="non_read" >안읽음</label>
 		</div>
 		<div id="searchSection">
-			<select id="eViewCondition" name="EViewCondition">
+			<select id="sViewCondition" name="SViewCondition">
 				<option value="5">5 개</option>
 				<option value="10">10 개</option>
 				<option value="20">20 개</option>
 			</select>
-			<select id="eSearchCategory" name="ESearchCategory">
+			<select id="sSearchCategory" name="SSearchCategory">
 				<option value="All">전체</option>
 				<option value="GetEtitle">제목</option>
 				<option value="GetEcontent">내용</option>
 				<option value="Id">보낸사람</option>
 			</select>
-			<input type="text" id="eSearchWord" name="ESearchWord" placeholder=" ※검색어를 입력하세요.">
+			<input type="text" id="sSearchWord" name="SSearchWord" placeholder=" ※검색어를 입력하세요.">
 			<input type="button" id="searchBtn" value="검 색">
 		</div>
 		</form>
@@ -105,10 +105,10 @@
 	      <tr>
 	        <th>선 택</th>
 	        <th>번 호</th>
-	        <th>보낸사람</th>
+	        <th>받는사람</th>
 	        <th>제목</th>
 	        <th>상태</th>
-	        <th>읽은날짜</th>
+	        <th>보낸날짜</th>
 	      </tr>
 	    </thead>
 	    <tbody style="border-bottom: 2px solid #14213d;">
